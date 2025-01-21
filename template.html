@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>scrapscript</title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Taylor Troesh" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="theme-color"
+      content="#000000"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <link rel="icon" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" sizes="192x192" href="/android-chrome-192x192.png" />
+    <link rel="icon" sizes="512x512" href="/android-chrome-512x512.png" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,700;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-tomorrow.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-tomorrow.min.css"
+    /></noscript>
+
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="/"><img src="/logo.png" /></a>
+        <a href="/guide">guide</a>
+        <a href="https://news.scrapscript.org">news</a>
+        <a href="https://scrapscript.discourse.group">chat</a>
+      </div>
+    </header>
+    <main>%s</main>
+    <footer>
+      <div>
+        <a href="/"><img src="/logo.png" /></a>
+        <a href="/guide">guide</a>
+        <a href="https://news.scrapscript.org">news</a>
+        <a href="https://scrapscript.discourse.group">chat</a>
+      </div>
+    </footer>
+    <script type="text/javascript">
+      const toc = document.getElementById("table-of-contents");
+      if (toc)
+        document.querySelectorAll("h2, h3").forEach(x => {
+          const id = x.innerText.replaceAll(/[^a-z]/gi, "");
+          x.id = id;
+          const item = `<li><a href="#${id}">${x.innerText}</a></li>`;
+          switch (x.tagName.toLowerCase()) {
+            case "h2":
+              toc.insertAdjacentHTML("beforeend", `${item}<ul></ul>`);
+              break;
+            case "h3":
+              [...toc.querySelectorAll("ul")]
+                ?.pop()
+                ?.insertAdjacentHTML("beforeend", item);
+              break;
+          }
+        });
+    </script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-core.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"
+    ></script>
+  </body>
+</html>
