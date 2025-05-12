@@ -108,7 +108,7 @@ manipulation and debugging, but don't worry -- we can send it over the wire as
 raw bytes using [flat scraps](#flatscraps).
 
 ```{.language-haskell}
-bytes/to-utf8-text ;;aGVsbG8gd29ybGQ=
+bytes/to-utf8-text ~~aGVsbG8gd29ybGQ=
 ```
 
 ```{.language-haskell .result}
@@ -118,7 +118,7 @@ bytes/to-utf8-text ;;aGVsbG8gd29ybGQ=
 You can also express individual bytes in hexadecimal.
 
 ```{.language-haskell}
-bytes/to-utf8-text <| ;;aGVsbG8gd29ybGQ= +< ;21
+bytes/to-utf8-text <| ~~aGVsbG8gd29ybGQ= +< ~21
 ```
 
 ```{.language-haskell .result}
@@ -163,7 +163,7 @@ Compared to most other modern programming languages, scrapscript is written
 You can read the following statement as "`x` where `x` equals 100":
 
 ```{.language-haskell}
-x . x = 100
+x ; x = 100
 ```
 
 ```{.language-haskell .result}
@@ -173,7 +173,7 @@ x . x = 100
 You can use where-statements as expressions:
 
 ```{.language-haskell}
-200 + (x . x = 150)
+200 + (x ; x = 150)
 ```
 
 ```{.language-haskell .result}
@@ -185,9 +185,9 @@ on different lines:
 
 ```{.language-haskell}
 a + b + c
-. a = 1
-. b = 2
-. c = 3
+; a = 1
+; b = 2
+; c = 3
 ```
 
 ```{.language-haskell .result}
@@ -200,11 +200,11 @@ There is an additional where operator that has stronger operator precedence
 
 ```{.language-haskell}
 a + b + c
-. a = 1
-. b = x + y
+; a = 1
+; b = x + y
   , x = 1
   , y = 1
-. c = 3
+; c = 3
 ```
 
 ```{.language-haskell .result}
@@ -259,8 +259,8 @@ Sometimes you want to store heterogeneous data like a `customer` or an
 `account`.
 
 ```{.language-haskell}
-rec~a
-. rec = { a = 1, b = "x" }
+rec.a
+; rec = { a = 1, b = "x" }
 ```
 
 ```{.language-haskell .result}
@@ -270,19 +270,19 @@ rec~a
 You can use an existing record to "fill in" the values of a new record:
 
 ```{.language-haskell}
-{ a = 2, c = ;FF, ..g }
-. g = { a = 1, b = "x", c = ;00 }
+{ a = 2, c = ~FF, ..g }
+; g = { a = 1, b = "x", c = ~00 }
 ```
 
 ```{.language-haskell .result}
-{ a = 2, b = "x", c = ;FF }
+{ a = 2, b = "x", c = ~FF }
 ```
 
 But you cannot change the type of a record:
 
 ```{.language-haskell}
 { a = "y", ..g }
-. g = { a = 1, b = "x" }
+; g = { a = 1, b = "x" }
 ```
 
 ```{.language-bash .result}
@@ -332,7 +332,7 @@ Elm if you want to make delightful web experiences with a great community!
 
 ```{.language-haskell}
 f 1 2
-. f = a -> b -> a + b
+; f = a -> b -> a + b
 ```
 
 ```{.language-haskell .result}
@@ -349,7 +349,7 @@ Fun fact: this is the only method of control-flow in scrapscript!
 
 ```{.language-haskell}
 f "b"
-. f =
+; f =
   | "a" -> 1
   | "b" -> 2
   | "c" -> 3
@@ -365,7 +365,7 @@ everything on one line:
 
 ```{.language-haskell}
 f "b"
-. f = | "a" -> 1 | "b" -> 2 | "c" -> 3 | x -> 0
+; f = | "a" -> 1 | "b" -> 2 | "c" -> 3 | x -> 0
 ```
 
 ```{.language-haskell .result}
@@ -378,10 +378,10 @@ help you.
 
 ```{.language-haskell}
 (f >> (x -> x) >> g) 7
-. f = | 7 -> "cat"
+; f = | 7 -> "cat"
       | 4 -> "dog"
       | _ -> "shark"
-. g = | "cat" -> "kitten"
+; g = | "cat" -> "kitten"
       | "dog" -> "puppy"
       |   a   -> "baby " ++ a
 ```
@@ -410,8 +410,8 @@ You can match on ints, but you can't match on floats:
 ```
 
 ```{.language-haskell}
-| ;00 -> ;00
-| ;FF -> ;FF
+| ~00 -> ~00
+| ~FF -> ~FF
 |   n -> n
 ```
 
@@ -424,7 +424,7 @@ You can also match on text and bytes, along with their leading content:
 ```
 
 ```{.language-haskell}
-| ;;8J+QuA== ++ x -> x
+| ~~8J+QuA== ++ x -> x
 | x -> x
 ```
 
@@ -483,7 +483,7 @@ If you want to define multiple alternatives, use a custom type:
 
 ```{.language-haskell}
 scoop::chocolate
-. scoop :
+; scoop :
   #vanilla
   #chocolate
   #strawberry
@@ -499,7 +499,7 @@ Alternatives can "carry" their own data, if defined that way:
 
 ```{.language-haskell}
 c::radius 4
-. c : #radius int
+; c : #radius int
 ```
 
 ```{.language-haskell .result}
@@ -510,8 +510,8 @@ If you want to use alternatives in multiple contexts, you can make types generic
 with functions:
 
 ```{.language-haskell}
-point::3d 1.0 "A" ;2B
-. point : x => y => z =>
+point::3d 1.0 "A" ~2B
+; point : x => y => z =>
   #2d { x : x, y : y        }
   #3d { x : x, y : y, z : z }
 ```
@@ -520,7 +520,7 @@ Functions have types too!
 
 ```{.language-haskell}
 typ::fun (n -> x * 2)
-. typ : #fun (int -> int)
+; typ : #fun (int -> int)
 ```
 
 Use pattern matching to grab the contents of each alternative:
@@ -529,7 +529,7 @@ Use pattern matching to grab the contents of each alternative:
 hand::left 5 |>
   | #l n -> n * 2
   | #r n -> n * 3
-. hand :
+; hand :
   #l int
   #r int
 ```
@@ -542,11 +542,11 @@ If it gets too confusing, break things into local types:
 
 ```{.language-haskell}
 t
-. t :
+; t :
   #a a
   #b int
   #c byte
-. a :
+; a :
   #x
   #y
   #z
@@ -637,7 +637,7 @@ In scrapscript, any expression can be replaced with a cryptographic hash:
 
 ```{.language-haskell}
 fib 31
-. fib =
+; fib =
   | 0 -> 1
   | 1 -> 1
   | n -> fib (n - 1) + fib (n - 2)
@@ -649,7 +649,7 @@ fib 31
 
 ```{.language-haskell}
 fib 31
-. fib = $sha1;;e4caecf0d6f84d4ad72e228adce6c2b46a0328f9
+; fib = $sha1~~e4caecf0d6f84d4ad72e228adce6c2b46a0328f9
 ```
 
 ```{.language-haskell .result}
@@ -679,7 +679,7 @@ $ echo '123' | scrap flat | scrap yard push /var/my-scrapyard
 ```
 
 ```{.language-bash .result}
-$sha1;;3efce6ae1ebf7fef7c7bdd8c270d76da5b079438
+$sha1~~3efce6ae1ebf7fef7c7bdd8c270d76da5b079438
 ```
 
 You can also make a local scrapyard accessible via a network:
@@ -689,7 +689,7 @@ $ scrap yard listen /var/my-scrapyard :8080
 ```
 
 ```{.language-bash}
-$ curl http://localhost:8080/#sha1;;3efce6ae1ebf7fef7c7bdd8c270d76da5b079438
+$ curl http://localhost:8080/#sha1~~3efce6ae1ebf7fef7c7bdd8c270d76da5b079438
 ```
 
 ```{.language-bash .result}
@@ -720,7 +720,7 @@ connie2036/fib
 
 ```{.language-haskell .result}
 fib
-. fib =
+; fib =
   | 0 -> 1
   | 1 -> 1
   | n -> fib (n - 1) + fib (n - 2)
@@ -764,8 +764,8 @@ In case you're interested, here's the general structure of a scrap map:
 
 ```scrapscript
 dict scrapname scraprefs
-. scrapname = text
-. scraprefs = list (pair timestamp (maybe scraphash))
+; scrapname = text
+; scraprefs = list (pair timestamp (maybe scraphash))
   , timestamp = int
   , scraphash = bytes
 ```
@@ -807,8 +807,8 @@ Here's what a simple web-server platform might look like:
 | "/home" -> q -> res::success <| "<p>howdy " ++ get-name q ++ "</p>"
 | "/contact" -> _ -> res::success "<a href="mailto:hello@example.com">email</a>"
 | _ -> _ -> res::notfound "<p>not found</p>"
-. res = #success text #notfound text
-. get-name = maybe/default "partner" << dict/get "name"
+; res = #success text #notfound text
+; get-name = maybe/default "partner" << dict/get "name"
 ```
 
 ```{.language-bash}

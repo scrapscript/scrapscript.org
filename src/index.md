@@ -1,7 +1,7 @@
 ```language-haskell
 greet <| person::ron 3
 
-. greet : person -> text =
+; greet : person -> text =
   | #cowboy -> "howdy"
   | #ron n -> "hi " ++ text/repeat n "a" ++ "ron"
   | #parent #m -> "hey mom"
@@ -10,7 +10,7 @@ greet <| person::ron 3
   | #stranger "felicia" -> "bye"
   | #stranger name -> "hello " ++ name
 
-. person :
+; person :
   #cowboy
   #ron int
   #parent (#m #f)
@@ -69,7 +69,7 @@ Scraps are stored/cached/named/indexed in global distributed "scrapyards".
 ```
 
 ```{.language-haskell}
-31 |> $;;e4caecf0d6f84d4ad72e228adce6c2b46a0328f9
+31 |> $~~e4caecf0d6f84d4ad72e228adce6c2b46a0328f9
 ```
 
 ```{.language-haskell .result}
@@ -138,15 +138,15 @@ By embracing
 
 ```{.language-haskell}
 h1 [] [ text "hello world" ]
-. { h1, text } = luffy88/html-tags
+; { h1, text } = luffy88/html-tags
 ```
 
 ```{.language-haskell}
 | "/home" -> q -> res::success <| "<p>howdy " ++ get-name q ++ "</p>"
 | "/contact" -> _ -> res::success "<a href="mailto:hello@example.com">email</a>"
 | _ -> _ -> res::notfound "<p>not found</p>"
-. get-name = maybe/default "partner" << dict/get "name"
-. res : #success text #notfound text
+; get-name = maybe/default "partner" << dict/get "name"
+; res : #success text #notfound text
 ```
 
 Platforms are flexible! Use scrapscript as a web server, templating language,
@@ -161,7 +161,7 @@ my-org::my-config
 , cpus = #4
 , mem  = #16
 }
-. my-org :
+; my-org :
     #my-config
       { name : text
       , cpus : #1 #2 #4 #8
@@ -177,7 +177,7 @@ with type-safety in mind.
 ### all valid programs return valid programs
 
 ```{.language-bash}
-$ echo 'my-type::left . my-type : #left #right' \
+$ echo 'my-type::left ; my-type : #left #right' \
 > | scrap eval \
 > | scrap eval \
 > | scrap eval
@@ -185,7 +185,7 @@ $ echo 'my-type::left . my-type : #left #right' \
 
 ```{.language-haskell .result}
 my-type::left
-. my-type :
+; my-type :
   #left
   #right
 ```
@@ -224,7 +224,7 @@ through linters and optimizers in simple pipelines.
 
 ```{.language-haskell}
 animal::horse "Lucy"
-. animal :
+; animal :
   #horse text
   #zebra int
 ```
@@ -341,9 +341,9 @@ payments, data, and cloud infrastructure.
 
 ```{.language-haskell}
 f a b
-. f = | x -> y -> x * y
-. a = 1
-. b = 2
+; f = | x -> y -> x * y
+; a = 1
+; b = 2
 ```
 
 Scrapscript encourages [wishful thinking](https://wiki.c2.com/?WishfulThinking).
@@ -354,7 +354,7 @@ to get there.
 ### snippets on steroids
 
 ```{.language-bash}
-$ echo ";;633b327df5e54bb626300a19a459b7bd81cce3ad13f72aa395df41e03f6a1577" \
+$ echo "~~633b327df5e54bb626300a19a459b7bd81cce3ad13f72aa395df41e03f6a1577" \
 | scrap save "my-key"
 ```
 
