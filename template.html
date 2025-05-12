@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>scrapscript</title>
@@ -59,6 +59,7 @@
         <a href="/guide">guide</a>
         <a href="https://news.scrapscript.org">news</a>
         <a href="https://scrapscript.discourse.group">chat</a>
+        <a href="https://github.com/scrapscript">code</a>
       </div>
     </header>
     <main>%s</main>
@@ -68,12 +69,13 @@
         <a href="/guide">guide</a>
         <a href="https://news.scrapscript.org">news</a>
         <a href="https://scrapscript.discourse.group">chat</a>
+        <a href="https://github.com/scrapscript">code</a>
       </div>
     </footer>
     <script type="text/javascript">
       const toc = document.getElementById("table-of-contents");
       if (toc)
-        document.querySelectorAll("h2, h3").forEach(x => {
+        document.querySelectorAll("h2, h3").forEach((x) => {
           const id = x.innerText.replaceAll(/[^a-z]/gi, "");
           x.id = id;
           const item = `<li><a href="#${id}">${x.innerText}</a></li>`;
