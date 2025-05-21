@@ -270,7 +270,7 @@ rec.a
 You can use an existing record to "fill in" the values of a new record:
 
 ```{.language-haskell}
-{ a = 2, c = ~FF, ..g }
+{ ..g, a = 2, c = ~FF }
 ; g = { a = 1, b = "x", c = ~00 }
 ```
 
@@ -281,7 +281,7 @@ You can use an existing record to "fill in" the values of a new record:
 But you cannot change the type of a record:
 
 ```{.language-haskell}
-{ a = "y", ..g }
+{ ..g, a = "y" }
 ; g = { a = 1, b = "x" }
 ```
 
@@ -441,10 +441,10 @@ There are many ways to match lists:
 You can match on records as long as you keep the argument types consistent:
 
 ```{.language-haskell}
-| { a = 1, b = 2, c = 3, ..x } -> ()
-| { a = 1, b = b         ..x } -> ()
-| { a = 1, b = 2,            } -> ()
-| {               c = c, ..x } -> ()
+| { ..x, a = 1, b = 2, c = 3 } -> ()
+| { ..x, a = 1, b = b        } -> ()
+| {      a = 1, b = 2        } -> ()
+| { ..x,               c = c } -> ()
 ```
 
 All destructuring is nestable:
