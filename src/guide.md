@@ -6,12 +6,12 @@
 
 Scrapscript is a tiny programming language and messaging notation. Use it to
 make small programs and share them with others! Our
-[community](https://scrapscript.discourse.group) celebrates connectedness,
+[community](https://ding.bar/c?tag=scrapscript) celebrates connectedness,
 correctness, and compression.
 
 Scrapscript is still in early development! Throughout this guide, you'll see
 "proposals". If you have any opinions, feel free to
-[post in Discourse](https://scrapscript.discourse.group) or email
+[post on Ding](https://ding.bar/c?tag=scrapscript) or email
 [Taylor](https://taylor.town).
 
 ## numbers
@@ -568,7 +568,7 @@ You can also nest and unnest in your matches:
 
 _Scrapscript is still in active development. The CLI is not available yet, but
 here's a preview of what we're building. Feel free to
-[complain with the community](https://scrapscript.discourse.group)._
+[complain with the community](https://ding.bar/c?tag=scrapscript)._
 
 To evaluate scrapscript, pipe it into `scrap eval`.
 
@@ -972,7 +972,7 @@ text-editing tools based on platform (e.g. "Arduino mode", "parser mode",
 "VR-dev mode").
 
 We're pretty early in ideation, so
-[post in Discourse](https://scrapscript.discourse.group) if you have any cool
+[post on ding](https://ding.bar/c?tag=scrapscripr) if you have any cool
 ideas!
 
 <!--
