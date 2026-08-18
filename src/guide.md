@@ -372,7 +372,7 @@ f "b"
 2
 ```
 
-Scrapscript's functions are greedy -- they grab code until they hit a `.` or
+Scrapscript's functions are greedy -- they grab code until they hit a `;` or
 matching `)`. Scrapscript doesn't care about whitespace, so indentation won't
 help you.
 
@@ -526,7 +526,7 @@ typ::fun (n -> x * 2)
 Use pattern matching to grab the contents of each alternative:
 
 ```{.language-haskell}
-hand::left 5 |>
+hand::l 5 |>
   | #l n -> n * 2
   | #r n -> n * 3
 ; hand :
